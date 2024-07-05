@@ -1,23 +1,31 @@
 import { useEffect, useState } from "react";
 
-interface useMediaQueryProps {
-  query: string;
-}
+export type useMediaQueryPropsType = {
+  [key: string]: string;
+};
 
-export const useMediaQuery = (props: useMediaQueryProps) => {
+export const useMediaQuery = (props: useMediaQueryPropsType) => {
+  const mediaQueriesList = Object.values(props).map((query) =>
+    window.matchMedia(query)
+  );
+  
   const [mediaQueryMatches, setMediaQueryMatches] = useState(
-    window.matchMedia(props.query).matches
+    mediaQueriesList.every((mediaQuery) => mediaQuery.matches)
   );
 
-  const handleChange = (e: MediaQueryListEvent) => {
-    setMediaQueryMatches(e.matches);
+  const handleChange = (mediaQuery: MediaQueryListEvent) => {
+    setMediaQueryMatches(mediaQuery.matches);
   };
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia(props.query);
-    mediaQuery.addEventListener("change", handleChange);
-    return () => mediaQuery.addEventListener("change", handleChange);
-  }, [props.query]);
+    mediaQueriesList.forEach((mediaQueryList) =>
+      mediaQueryList.addEventListener("change", handleChange)
+    );
+    return () =>
+      mediaQueriesList.forEach((mediaQueryList) =>
+        mediaQueryList.removeEventListener("change", handleChange)
+      );
+  }, []);
 
   return mediaQueryMatches;
 };
