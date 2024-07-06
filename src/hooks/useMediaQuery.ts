@@ -1,20 +1,19 @@
 import { useEffect, useState } from "react";
+import { useMediaQueryType } from "../types";
 
-export type useMediaQueryPropsType = {
-  [key: string]: string;
-};
-
-export const useMediaQuery = (props: useMediaQueryPropsType) => {
+export const useMediaQuery = (props: useMediaQueryType) => {
   const mediaQueriesList = Object.values(props).map((query) =>
     window.matchMedia(query)
   );
-  
+
   const [mediaQueryMatches, setMediaQueryMatches] = useState(
     mediaQueriesList.every((mediaQuery) => mediaQuery.matches)
   );
 
-  const handleChange = (mediaQuery: MediaQueryListEvent) => {
-    setMediaQueryMatches(mediaQuery.matches);
+  const handleChange = () => {
+    setMediaQueryMatches(
+      mediaQueriesList.every((mediaQuery) => mediaQuery.matches)
+    );
   };
 
   useEffect(() => {

@@ -21,11 +21,8 @@ export const HookTest = () => {
       {isTabletOrMobile && <p>You are a tablet or mobile phone</p>}
       <p>Your are in {isPortrait ? "portrait" : "landscape"} orientation</p>
       {isRetina && <p>You are retina</p>}
-
-      {isDesktopAndPortrait ? (
+      {isDesktopAndPortrait && (
         <p>You have desktop and you are in landscape orientation</p>
-      ) : (
-        <p>You don't have desktop or you are in portrait orientation</p>
       )}
     </div>
   );

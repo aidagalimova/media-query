@@ -17,11 +17,7 @@ export const ComponentTest = () => (
 
     <MediaQuery minWidth={1224} orientation={"landscape"}>
       {(matches) =>
-        matches ? (
-          <p>You have desktop and you are in landscape orientation</p>
-        ) : (
-          <p>You don't have desktop or you are in portrait orientation</p>
-        )
+        matches && <p>You have desktop and you are in landscape orientation</p>
       }
     </MediaQuery>
   </div>
