@@ -1,15 +1,12 @@
 {
-  "name": "react-use-document-visibility",
+  "name": "react-responsive",
   "version": "0.1.0",
   "private": true,
   "main": "dist/index.js",
   "scripts": {
-    "build-rollup": "rollup -c",
-    "start-rollup": "rollup -c -w",
     "start": "react-scripts start"
   },
   "dependencies": {
-    "react-responsive": "^10.0.0",
     "react-scripts": "^5.0.1"
   },
   "peerDependencies": {
@@ -19,7 +16,6 @@
   "devDependencies": {
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
-    "rollup": "^2.79.1",
     "typescript": "^4.9.5"
   },
   "browserslist": {
