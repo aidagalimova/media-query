@@ -1,4 +1,3 @@
-// import { ComponentTest } from "../example/componentTest";
 import { ComponentTest } from "../example/componentTest";
 import { HookTest } from "../example/hookTest";
 
