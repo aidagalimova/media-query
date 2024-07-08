@@ -28,3 +28,17 @@ export enum Units {
   px = "px",
   dppx = "dppx",
 }
+
+type RequireAtLeastOne<T, Keys extends keyof T = keyof T> = Pick<
+  T,
+  Exclude<keyof T, Keys>
+> &
+  {
+    [K in Keys]-?: Required<Pick<T, K>> & Partial<Pick<T, Exclude<Keys, K>>>;
+  }[Keys];
+
+type AtLeastOneMediaQuery = RequireAtLeastOne<MediaQueries>;
+interface ChildrenProp {
+  children: ((matches: boolean) => React.ReactNode) | React.ReactNode;
+}
+export type MediaQueryProps = AtLeastOneMediaQuery & ChildrenProp;

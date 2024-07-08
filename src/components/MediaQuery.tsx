@@ -6,11 +6,8 @@ import {
   OrientationType,
   useMediaQueryType,
   Units,
+  MediaQueryProps,
 } from "../types";
-
-interface MediaQueryProps extends MediaQueries {
-  children: ((matches: boolean) => React.ReactNode) | React.ReactNode;
-}
 
 function getQueryValue(
   queryType: MediaQueryValues,
