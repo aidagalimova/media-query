@@ -17,24 +17,30 @@ function getQueryValue(
     return propValue;
   } else {
     if (
-      queryType !== MediaQueryValues.maxResolution &&
-      queryType !== MediaQueryValues.minResolution
+      queryType === MediaQueryValues.maxResolution ||
+      queryType === MediaQueryValues.minResolution
     ) {
-      return propValue + Units.px;
-    } else {
       return propValue + Units.dppx;
+    } else {
+      return propValue + Units.px;
     }
   }
 }
 
-function getUseMediaQueryArgs(props: MediaQueries) {
+function isKey<T extends object>(x: T, k: PropertyKey): k is keyof T {
+  return k in x;
+}
+
+function getUseMediaQueryArgs(queries: MediaQueries) {
   const result: useMediaQueryType = {};
-  for (const prop in props) {
-    const propValue = props[prop as keyof typeof props];
-    if (propValue !== undefined) {
-      const queryType = MediaQueryValues[prop as keyof typeof MediaQueryValues];
-      const queryValue = getQueryValue(queryType, propValue);
-      result[prop] = `(${queryType}: ${queryValue})`;
+  for (const key in queries) {
+    if (isKey(queries, key)) {
+      const propValue = queries[key];
+      if (propValue) {
+        const queryType = MediaQueryValues[key];
+        const queryValue = getQueryValue(queryType, propValue);
+        result[key] = `(${queryType}: ${queryValue})`;
+      }
     }
   }
   return result;
